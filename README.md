@@ -19,3 +19,16 @@ em ambientes de terminal.
 git clone https://github.com/dclmax/dcl-max.git
 cd dcl-max
 bash scripts/install.sh
+▶️ Execução
+Copiar código
+Bash
+python src/DCL-MAX.py
+📂 Estrutura
+src/ Código-fonte
+scripts/ Scripts auxiliares
+requirements.txt Dependências
+README.md Documentação
+⚠️ Aviso
+Projeto de uso educacional. O autor não se responsabiliza por uso indevido.
+👤 Autor
+Doctor Coringa Lunático
