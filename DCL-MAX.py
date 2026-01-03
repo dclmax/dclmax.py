@@ -24,18 +24,19 @@ def clear_screen():
 
 # ================= BANNER =================
 def banner():
-    figlet = Figlet(font="slant")
-    dcl = figlet.renderText("DCL")
-    max_ = figlet.renderText("MAX")
+    figlet = Figlet(font="standard")
 
-    art = f"{RED}{dcl}{GREEN} M{YELLOW}A{RED}X{RESET}\n{max_}"
+    texto = figlet.renderText("DCL MAX")
+
+    art = f"{RED}{texto}{RESET}"
 
     console.print(
         Panel(
             Align.center(art),
             title="[green]DOCTOR CORINGA LUNÁTICO[/green]",
             border_style="red",
-            padding=(0, 1),
+            padding=(1, 2),
+            width=70,
         )
     )
 
@@ -45,26 +46,30 @@ def show_menu():
     banner()
 
     menu = Text.from_markup(
-        "[red]1 SPAM[/red]\n"
-        "[green]2 DENÚNCIA[/green]\n"
-        "[yellow]3 DCLS[/yellow]\n"
-        "[blue]4 DCL-MAX[/blue]\n"
-        "[red]0 SAIR[/red]"
+        "[red]1 • SPAM[/red]\n"
+        "[green]2 • DENÚNCIA[/green]\n"
+        "[yellow]3 • DCLS[/yellow]\n"
+        "[blue]4 • DCL-MAX[/blue]\n"
+        "[red]0 • SAIR[/red]"
     )
 
     console.print(
         Panel(
             Align.left(menu),
-            title="MENU",
+            title="[green]MENU[/green]",
             border_style="green",
-            padding=(0, 2),
+            padding=(1, 3),
             width=40,
         )
     )
 
-    return Prompt.ask("Escolha", choices=["1", "2", "3", "4", "0"], default="0")
+    return Prompt.ask(
+        "Escolha",
+        choices=["1", "2", "3", "4", "0"],
+        default="0"
+    )
 
-# ================= EXECUÇÃO =================
+# ================= LOADING =================
 def loading_bar(option, numero):
     clear_screen()
     banner()
@@ -77,9 +82,9 @@ def loading_bar(option, numero):
     console.print(
         Panel(
             info,
-            title="EXECUTANDO",
+            title="[yellow]EXECUTANDO[/yellow]",
             border_style="yellow",
-            padding=(0, 2),
+            padding=(1, 3),
             width=50,
         )
     )
@@ -90,39 +95,39 @@ def loading_bar(option, numero):
         TextColumn("[yellow]{task.percentage:>3.0f}%"),
         console=console,
     ) as progress:
-        task = progress.add_task(option, total=1000)
-        for _ in range(1000):
-            time.sleep(0.01)
+        task = progress.add_task(option, total=100)
+        for _ in range(100):
+            time.sleep(0.03)
             progress.update(task, advance=1)
 
 # ================= RELATÓRIO =================
 def generate_report(option, numero):
     agora = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-    mensagem_debochada = {
-        "SPAM": "Spam enviado! O alvo tá chorando agora kkk 😂💀",
-        "DENÚNCIA": "Denúncia processada! Adeus WhatsApp pro infeliz! 👋🔥",
-        "DCLS": "DCLS ativado! Sistema sobrecarregado, ele que se foda! 🤡",
-        "DCL-MAX": "DCL-MAX no talo! Destruição total ativada, LUNÁTICO MODE ON! 😈",
+    mensagens = {
+        "SPAM": "Spam enviado com sucesso 😈",
+        "DENÚNCIA": "Denúncia processada com êxito 🔥",
+        "DCLS": "DCLS ativado — sistema impactado ⚠️",
+        "DCL-MAX": "Modo DCL-MAX ativado 💀",
     }
 
     texto = (
         f"[red]OPÇÃO:[/red] {option}\n"
         f"[yellow]NÚMERO:[/yellow] {numero}\n"
-        f"[green]DATA/HORA:[/green] {agora}\n"
+        f"[green]DATA/HORA:[/green] {agora}\n\n"
         f"[red]PAINEL:[/red] DCL MAX\n"
         f"[green]CRIADOR:[/green] DOCTOR CORINGA LUNÁTICO\n\n"
-        f"[green]STATUS:[/green] ✅ CONCLUÍDO!\n\n"
-        f"{mensagem_debochada[option]}"
+        f"[green]STATUS:[/green] ✅ CONCLUÍDO\n\n"
+        f"{mensagens[option]}"
     )
 
     console.print(
         Panel(
             texto,
-            title="RESULTADO",
+            title="[red]RESULTADO[/red]",
             border_style="red",
-            padding=(1, 2),
-            width=60,
+            padding=(1, 3),
+            width=65,
         )
     )
 
@@ -137,9 +142,13 @@ def main():
             clear_screen()
             console.print(
                 Panel(
-                    "OBRIGADO POR USAR DCL MAX\nDOCTOR CORINGA LUNÁTICO 👹",
+                    Align.center(
+                        "[red]OBRIGADO POR USAR[/red]\n"
+                        "[green]DCL MAX[/green]\n\n"
+                        "DOCTOR CORINGA LUNÁTICO 👹"
+                    ),
                     border_style="red",
-                    padding=(1, 2),
+                    padding=(2, 4),
                     width=50,
                 )
             )
@@ -163,4 +172,5 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nSaindo...")
+        clear_screen()
+        console.print("[red]Saindo...[/red]")
